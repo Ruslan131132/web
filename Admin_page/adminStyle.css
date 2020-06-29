@@ -1,0 +1,21 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+/*   padding-top: 3rem; */
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+}
+.container {
+  max-width: 960px;
+}
+
+.lh-condensed { line-height: 1.25; }
+
+a.blocktext {
+    text-align: center;
+}
+.blog-header {
+  line-height: 1;
+  border-bottom: 1px solid #e5e5e5;
+}
