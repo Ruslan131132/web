@@ -17,6 +17,175 @@ function unique(arr) {
 function print_arr_pagin(arr){
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	let page_container = document.querySelector('#print_rest');
+// 			let pagination = document.querySelector('#pagination');
+			let update_page = true;
+			
+			
+			
+			
+			
+			
+			
+			const notesOnPage = 12;
+			const countOfPages = Math.ceil(arr.length / notesOnPage);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			let pag_div = document.createElement("div");
+			pag_div.id = "pagination"
+// 			pag_div.class = "input-group mb-3"
+// 			pag_div.style = "list-style: unset; padding: unset;"
+			
+			
+			pag_div.innerHTML = 
+			`<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class=" prev input-group-text" style="cursor:pointer">&laquo;</span>
+				</div>
+				<input type="text" style="width:40px" class="form-control" oninput="changedNumber()" value="1">
+				<div class="input-group-append">
+					<span class="next input-group-text" style="cursor:pointer">&raquo;</span>
+				</div>
+			</div>`
+			
+			
+			document.getElementById('input_pagination').append(pag_div);
+			
+/*
+			let pag_ul = document.createElement("ul");
+			pag_ul.id = "pagination"
+			pag_ul.style = "list-style: unset; padding: unset;"
+			
+			
+			
+			
+			
+			
+			pag_ul.innerHTML = `<li class="prev page-item" style="display:inline; cursor:pointer"><a class="page-link">&laquo;</a></li>
+            <li style="display:inline"></li>
+            <li class="next page-item" style="display:inline; cursor:pointer"><a class="page-link">&raquo;</a></li>
+			`;
+			document.getElementById('input_pagination').append(pag_ul);
+*/
+			
+			
+			
+			document.querySelector('#pagination input').oninput = () => {
+			    if(!update_page) return
+			    if(!document.querySelector('#pagination input').value){
+			        show(1)
+			        return
+			    }
+			    if(document.querySelector('#pagination input').value > countOfPages || document.querySelector('#pagination input').value < 1) return
+			    update_page = false
+			    setInterval(() => {update_page = true}, 1000)
+			    show(document.querySelector('#pagination input').value)
+			}
+			
+			document.querySelector('#pagination .next').onclick = () => {
+			    if(document.querySelector('#pagination input').value >= countOfPages) return 
+			    	if(!document.querySelector('#pagination input').value) 
+			    		document.querySelector('#pagination input').value = 1; 
+			    document.querySelector('#pagination input').value = parseInt(document.querySelector('#pagination input').value) + 1
+			    show(document.querySelector('#pagination input').value)
+			}
+			document.querySelector('#pagination .prev').onclick = () => {
+			    if(document.querySelector('#pagination input').value <= 1) return
+			    	 if(!document.querySelector('#pagination input').value) 
+			    	 	document.querySelector('#pagination input').value = 1;
+			    document.querySelector('#pagination input').value = parseInt(document.querySelector('#pagination input').value) - 1
+			    show(document.querySelector('#pagination input').value)
+			}
+			show()
+			function show(page = 1){
+			    if (page > countOfPages) return
+			    page_container.innerHTML = arr.slice((page - 1) * notesOnPage, page * notesOnPage).map((element) => {
+			        return `
+			        <div class="col-md-4">
+			            <div class="card mb-4 shadow-sm">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12" style=" height: 60px;"><p class="card-text" id="card">${String(element.name)}(${String(element.typeObject)})</p></div>
+									<div class="col-12" style=" height: 120px;"><hr><small class="text-muted">${String(element.address)}</small></div>
+								</div>	
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<button type="button" class="moreInformation_button btn btn-sm btn-outline-success" data-toggle="modal" data-target="#moreInformation">...</button>
+										
+									</div>
+									<div class="btn-group">
+										<button type="button" class="changeInformation_button btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#changeInformation">
+											<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+												<path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+											</svg>
+										</button>
+									</div>
+									
+									<div class="btn-group">
+										<button type="button" class="deleteInformation_button btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteInformation">
+											<svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+												<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+											</svg>
+										</button>
+									</div>
+									
+									
+			              		</div>
+			            	</div>
+						</div>
+					</div>
+			        `;
+			    }).join('')
+			
+			}
+	
+	
+			ShowMoreInfo();
+			changeInfo();
+			deleteInfo();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*
 	let notesOnPage = 12;
 	let notes = [];
 			let countOfItems = Math.ceil(arr.length/notesOnPage);
@@ -34,9 +203,7 @@ function print_arr_pagin(arr){
 			
 			let choosed_li = document.getElementsByClassName('page-link');
 			ShowPage(choosed_li[0]);
-			ShowMoreInfo();
-			changeInfo();
-			deleteInfo();
+			
 			for(let item of choosed_li){
 				item.addEventListener('click', function(){
 					let active = document.querySelector("li.page-item.active");						
@@ -67,12 +234,7 @@ function print_arr_pagin(arr){
 			
 				let pageNum = Number(item.innerHTML);
 							
-		/*
-							1: 0-12
-							2: 12-24
-							3: 24-36
-							
-		*/
+		
 				let start = (pageNum-1)*12;
 				let end = (pageNum-1)*12 + 12;
 				notes = arr.slice(start, end);
@@ -128,6 +290,24 @@ function print_arr_pagin(arr){
 			}//функция показа страниц 
 	
 			
+*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

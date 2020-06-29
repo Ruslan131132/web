@@ -325,14 +325,52 @@ obXhr.onreadystatechange =() => {
 			const notesOnPage = 12;
 			const countOfPages = Math.ceil(arr_print.length / notesOnPage);
 			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			let pag_div = document.createElement("div");
+			pag_div.id = "pagination"
+// 			pag_div.class = "input-group mb-3"
+// 			pag_div.style = "list-style: unset; padding: unset;"
+			
+			
+			pag_div.innerHTML = 
+			`<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class=" prev input-group-text" style="cursor:pointer">&laquo;</span>
+				</div>
+				<input type="text" style="width:40px" class="form-control" oninput="changedNumber()" value="1">
+				<div class="input-group-append">
+					<span class="next input-group-text" style="cursor:pointer">&raquo;</span>
+				</div>
+			</div>`
+			
+			
+			document.getElementById('input_pagination').append(pag_div);
+			
+/*
 			let pag_ul = document.createElement("ul");
 			pag_ul.id = "pagination"
 			pag_ul.style = "list-style: unset; padding: unset;"
-			pag_ul.innerHTML = `<li class="prev" style="display:inline; cursor:pointer">&laquo;</li>
-            <li style="display:inline"><input style="width:20px" oninput="changedNumber()" value="1"></li>
-            <li class="next" style="display:inline; cursor:pointer">&raquo; </li>
+			
+			
+			
+			
+			
+			
+			pag_ul.innerHTML = `<li class="prev page-item" style="display:inline; cursor:pointer"><a class="page-link">&laquo;</a></li>
+            <li style="display:inline"></li>
+            <li class="next page-item" style="display:inline; cursor:pointer"><a class="page-link">&raquo;</a></li>
 			`;
 			document.getElementById('input_pagination').append(pag_ul);
+*/
 			
 			
 			
@@ -844,7 +882,7 @@ obXhr.onreadystatechange =() => {
 					for (let el of elements_price) {
 						el.innerHTML = "";
 						pItem = document.createElement('p');
-						pItem.innerHTML = `Итого: ${itog_options}`;
+						pItem.innerHTML = `<big>Итого: ${itog_options}</big>`;
 						el.append(pItem)
 		  			}
 		  			
