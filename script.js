@@ -346,7 +346,7 @@ obXhr.onreadystatechange =() => {
 				<div class="input-group-prepend">
 					<span class=" prev input-group-text" style="cursor:pointer">&laquo;</span>
 				</div>
-				<input type="text" style="width:40px" class="form-control" oninput="changedNumber()" value="1">
+				<input type="text" style="width:50px" class="form-control" oninput="changedNumber()" value="1">
 				<div class="input-group-append">
 					<span class="next input-group-text" style="cursor:pointer">&raquo;</span>
 				</div>

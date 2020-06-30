@@ -63,7 +63,7 @@ function print_arr_pagin(arr){
 				<div class="input-group-prepend">
 					<span class=" prev input-group-text" style="cursor:pointer">&laquo;</span>
 				</div>
-				<input type="text" style="width:40px" class="form-control" oninput="changedNumber()" value="1">
+				<input type="text" style="width:50px" class="form-control" oninput="changedNumber()" value="1">
 				<div class="input-group-append">
 					<span class="next input-group-text" style="cursor:pointer">&raquo;</span>
 				</div>
@@ -786,7 +786,7 @@ function print_arr_pagin(arr){
 	
 	
 	
-	return notes;	
+// 	return notes;	
 	
 }//конец лучшей функции во вселенной
 
@@ -1303,7 +1303,7 @@ function createInfo(){
 	
 	
 	
-	.then(json => console.log(json))
+	.then(json => alert("id созданного документа - "+json.id))
 	
 	
 	
