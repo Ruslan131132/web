@@ -17,11 +17,6 @@ function unique(arr) {
   return result;
 };
 
-
-
-
-
-// НАЧАЛО...
 let obXhr = new XMLHttpRequest();
 obXhr.open('GET', `http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1` );
 obXhr.send();
@@ -32,9 +27,6 @@ obXhr.onreadystatechange =() => {
 		alert('Сервер недоступен ' + obXhr.status + ' ' + obXhr.statusText);
 		return;
 	}
-	
-	
-	
 	let arr_top_20 = JSON.parse(obXhr.response).map(elem=>(
 			{
 				name: elem.name ,
@@ -82,121 +74,104 @@ obXhr.onreadystatechange =() => {
 			typeObjectOption.innerHTML = `${String(element)}`;
 			document.getElementById('inputtypeObject').append(typeObjectOption);
 		});
-		
-		
-		
-		
-		
+
 		let rate_array_top_20 = arr_top_20.sort((a, b) => a.rate < b.rate ? 1 : -1);//все сам))))) - это у нас значится фильтрация массива объектов по рейтингу
 		
 		for (let i = 0; i < 20; i++){//выводим начиная 20 элементов с конца в отсортированном массиве
         console.log(rate_array_top_20[i]);//выводишь
 		
 		divrItem = document.createElement('div');
-					divrItem.className = "col-md-3";
-					divrItem.innerHTML = 
-						`<div class="card mb-4 shadow-sm">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-12" style=" height: 60px;"><p class="card-text" id="card">${String(rate_array_top_20[i].name)}(${String(rate_array_top_20[i].typeObject)})</p></div>
-									<div class="col-12" style=" height: 120px;"><hr><small class="text-muted">${String(rate_array_top_20[i].address)}</small></div>
-								</div>	
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<button type="submit" class="menu_button btn btn-sm btn-outline-success">Выбрать</button>
-									</div>
-									<small class="text-muted">
-									<svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-									</svg> ${String(rate_array_top_20[i].rate/10)}</small>
-		              			</div>
-		            		</div>
-						</div>`
-				  	document.getElementById('print_rest').append(divrItem);
+		divrItem.className = "col-md-3";
+		divrItem.innerHTML =
+			`<div class="card mb-4 shadow-sm">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12" style=" height: 60px;">
+							<p class="card-text" id="card">${String(rate_array_top_20[i].name)}(${String(rate_array_top_20[i].typeObject)})</p>
+						</div>
+						<div class="col-12" style=" height: 120px;">
+							<hr>
+							<small class="text-muted">${String(rate_array_top_20[i].address)}</small>
+						</div>
+					</div>	
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="submit" class="menu_button btn btn-sm btn-outline-success">Выбрать</button>
+						</div>
+						<small class="text-muted">
+							<svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+							</svg> ${String(rate_array_top_20[i].rate/10)}
+						</small>
+		            </div>			
+		        </div>
+			</div>`;
+		document.getElementById('print_rest').append(divrItem);
 
-		
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		//Начало работы с menu.json		
-				let request = new XMLHttpRequest();
-				request.open('GET', 'Menu2.json');
-				request.send();
-			
-				request.onreadystatechange = () => {
-					if(request.readyState != 4) return;
-					if(request.status != 200){
-						alert('Сервер недоступен ' + request.status + ' ' + request.statusText);
-						return;
+		let request = new XMLHttpRequest();
+		request.open('GET', 'Menu2.json');
+		request.send();
+
+		request.onreadystatechange = () => {
+			if(request.readyState != 4) return;
+			if(request.status != 200){
+				alert('Сервер недоступен ' + request.status + ' ' + request.statusText);
+				return;
+			}
+
+			let arr_menu = JSON.parse(request.response).map(elem=>(
+				{
+					name: elem.name ,
+					picture: elem.picture ,
+					description: elem.description
+				}));
+
+
+			let elements = document.getElementsByClassName('menu_button');
+
+			for (let elem of elements) {
+				elem.onclick = () => {//начало события клика на выбранную кнопку у заведения
+
+					itog = 0;
+
+					document.getElementById('print_menu').innerHTML = "";
+
+					console.log(String(elem.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML));//адрес выбранного заведения
+					console.log(String(elem.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.lastElementChild.innerHTML));//"имя"+(+"тип"+)
+
+
+					let choosed_address = String(elem.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML);
+					let choosed_name_type = String(elem.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.lastElementChild.innerHTML);
+					let price_obj;
+					let arr_price_obj = rate_array_top_20.filter((element) => {
+
+						if( (String(element.name+"("+element.typeObject+")") == choosed_name_type ) && (element.address ==  choosed_address) ){
+
+							console.log(element);
+							choosed_obj = element;//для модального окна
+							price_obj = element;//для массива цен(мы нашли из общего массива данные по выбранному заведению)
+							return element;
+
 						}
-					
-					let arr_menu = JSON.parse(request.response).map(elem=>(
-					{
-						name: elem.name ,
-						picture: elem.picture ,
-						description: elem.description
-					}));					
-					
-							
-					let elements = document.getElementsByClassName('menu_button btn btn-sm btn-outline-success');
-	
-	
-					for (let elem of elements) { 
-						elem.onclick = () => {//начало события клика на выбранную кнопку у заведения
-/*
-							
-							let elements_price = document.getElementsByName('itog');
-				  			for (let el of elements_price) {
-			  					el.innerHTML = "Итого 0";
-			  				}
-*/
-							
-							itog = 0;
-	
-							document.getElementById('print_menu').innerHTML = "";
-							
-							console.log(String(elem.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML));//адрес выбранного заведения
-							console.log(String(elem.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.lastElementChild.innerHTML));//"имя"+(+"тип"+)
-							
-							
-							let choosed_address = String(elem.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML);
-							let choosed_name_type = String(elem.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.lastElementChild.innerHTML);
-							let price_obj;
-							let arr_price_obj = rate_array_top_20.filter((element) => {
-								
-	// 							console.log(element.name+"("+element.typeObject+")");
-								
-								if( (String(element.name+"("+element.typeObject+")") == choosed_name_type ) && (element.address ==  choosed_address) ){
-									
-									console.log(element);
-									choosed_obj = element;//для модального окна
-									price_obj = element;//для массива цен(мы нашли из общего массива данные по выбранному заведению)
-									return element;
-									
-								}
-							});//для поиска нужно объекта
-					
-							let arr_price = Object.values(price_obj).slice(7);//делает объект price_obj массивом и вырезает ценники => массив цен
-							console.log(arr_price);
-							
-							console.log("а это массив");
-							console.log(arr_price_obj);
-				        	arr_menu.forEach(function(element,i){
-					        	
-					        	console.log();
-								divrItem2 = document.createElement('div');
-					        	divrItem2.className = "col-md-4";
-								divrItem2.innerHTML = 
-						        
-						        	`<div class="card mb-4 shadow-sm">
+					});//для поиска нужно объекта
+
+					let arr_price = Object.values(price_obj).slice(7);//делает объект price_obj массивом и вырезает ценники => массив цен
+					console.log(arr_price);
+
+					console.log("а это массив");
+					console.log(arr_price_obj);
+					arr_menu.forEach(function(element,i){
+
+						console.log();
+						divrItem2 = document.createElement('div');
+						divrItem2.className = "col-md-4";
+						divrItem2.innerHTML =
+
+							`<div class="card mb-4 shadow-sm">
 						            	<img src="${element.picture}" class="bd-placeholder-img card-img-top" width="100%" height="200">
 										<div class="card-body">
 											<p class="card-text">${element.name}</p>
@@ -221,31 +196,17 @@ obXhr.onreadystatechange =() => {
 							              	</div>
 						            	</div>
 									</div>`
-						        
-									document.getElementById('print_menu').append(divrItem2);
-				        	});//заполнение меню
-		
-					
-				
-			 
-	/*
-			  				console.log(JSON.parse(request.response));
-			  				console.log("Кнопка сработала") ;
-	*/
-	    				}//конец события при нажатии кнопки выбрать в списке заведений 
-	   				}//перебор всех этих кнопок
-			 
-				}//конец работы с menu.json
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+						document.getElementById('print_menu').append(divrItem2);
+					});//заполнение меню
+					/*
+                                              console.log(JSON.parse(request.response));
+                                              console.log("Кнопка сработала") ;
+                    */
+				}//конец события при нажатии кнопки выбрать в списке заведений
+			}//перебор всех этих кнопок
+
+		}//конец работы с menu.json
 		
 	}// конец zapmain
 		
@@ -299,48 +260,15 @@ obXhr.onreadystatechange =() => {
 			
 		if(k>0 )
 		{
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			let page_container = document.querySelector('#print_rest');
-// 			let pagination = document.querySelector('#pagination');
 			let update_page = true;
-			
-			
-			
-			
-			
-			
-			
 			const notesOnPage = 12;
 			const countOfPages = Math.ceil(arr_print.length / notesOnPage);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			let pag_div = document.createElement("div");
 			pag_div.id = "pagination"
-// 			pag_div.class = "input-group mb-3"
-// 			pag_div.style = "list-style: unset; padding: unset;"
-			
-			
+
 			pag_div.innerHTML = 
 			`<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -355,25 +283,7 @@ obXhr.onreadystatechange =() => {
 			
 			document.getElementById('input_pagination').append(pag_div);
 			
-/*
-			let pag_ul = document.createElement("ul");
-			pag_ul.id = "pagination"
-			pag_ul.style = "list-style: unset; padding: unset;"
-			
-			
-			
-			
-			
-			
-			pag_ul.innerHTML = `<li class="prev page-item" style="display:inline; cursor:pointer"><a class="page-link">&laquo;</a></li>
-            <li style="display:inline"></li>
-            <li class="next page-item" style="display:inline; cursor:pointer"><a class="page-link">&raquo;</a></li>
-			`;
-			document.getElementById('input_pagination').append(pag_ul);
-*/
-			
-			
-			
+
 			document.querySelector('#pagination input').oninput = () => {
 			    if(!update_page) return
 			    if(!document.querySelector('#pagination input').value){
@@ -426,121 +336,7 @@ obXhr.onreadystatechange =() => {
 					</div>
 			        `;
 			    }).join('')
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-/*
 
-			let notesOnPage = 12;
-			let countOfItems = Math.ceil(arr_print.length/notesOnPage);
-			for (let i=1; i <= countOfItems; i++ ){
-				let pag_buttons = document.createElement('li');
-				if(i == 1){
-					pag_buttons.className = "page-item active";
-				}
-				else{
-					pag_buttons.className = "page-item";
-				}
-				pag_buttons.innerHTML = `<a class="page-link">${i}</a>`;
-		  		document.getElementById('input_pagination').append(pag_buttons);
-			}
-			
-			let choosed_li = document.getElementsByClassName('page-link');
-			ShowPage(choosed_li[0]);
-			for(let item of choosed_li){
-				item.addEventListener('click', function(){
-					let active = document.querySelector("li.page-item.active");						
-					console.log(active);
-						
-					if (active) {
-						console.log("найдено");
-// 						console.log(active);
-						active.className = "page-item";
-					}
-						
-						this.parentNode.className = "page-item active";
-// 						console.log(this.parentNode.parentNode.c.classList.contains("page-item active"));
-						ShowPage(this);
-						
-						
-						
-						
-				});//конец клика на страницу li
-			}
-				
-				
-					
-				
-			function ShowPage(item){
-				document.getElementById('print_menu').innerHTML = "";
-				let pageNum = Number(item.innerHTML);
-							
-						let start = (pageNum-1)*12;
-				let end = (pageNum-1)*12 + 12;
-				let notes = arr_print.slice(start, end);
-				console.log(notes);
-				document.getElementById('print_rest').innerHTML = "";
-				notes.forEach((element) => {
-					divrItem = document.createElement('div');
-					divrItem.className = "col-md-3";
-					divrItem.innerHTML = 
-						`<div class="card mb-4 shadow-sm">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-12" style=" height: 60px;"><p class="card-text" id="card">${String(element.name)}(${String(element.typeObject)})</p></div>
-									<div class="col-12" style=" height: 120px;"><hr><small class="text-muted">${String(element.address)}</small></div>
-								</div>	
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<button type="submit" class="menu_button btn btn-sm btn-outline-success">Выбрать</button>
-									</div>
-									<small class="text-muted">
-									<svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-									</svg> ${String(element.rate/10)}</small>
-		              			</div>
-		            		</div>
-						</div>`
-				  	document.getElementById('print_rest').append(divrItem);
-			  			
-			  			
-			  			
-			  			
-				        	
-			    });//фильтрованные заведения
-						
-					
-*/	
-						
-						
 				//Начало работы с menu.json		
 				let request = new XMLHttpRequest();
 				request.open('GET', 'Menu2.json');
@@ -566,16 +362,7 @@ obXhr.onreadystatechange =() => {
 	
 					for (let elem of elements) { 
 						elem.onclick = () => {//начало события клика на выбранную кнопку у заведения
-							
-/*
-							let elements_price = document.getElementsByName('itog');
-				  			for (let el of elements_price) {
-			  					pItem = document.createElement('p');
-			  					pItem.innerHTML = `<big>Итого: ${itog}</big>`;
-			  					el.append(pItem)
-			  				}
-*/
-							
+
 							itog = 0;
 	
 							document.getElementById('print_menu').innerHTML = "";
@@ -587,9 +374,7 @@ obXhr.onreadystatechange =() => {
 							let choosed_address = String(elem.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML);
 							let choosed_name_type = String(elem.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.lastElementChild.innerHTML);
 							let price_obj;
-							let arr_price_obj = arr_print.filter((element) => {//НАДО ТУТ ИСПРАВИТЬ(На заметку)
-								
-	// 							console.log(element.name+"("+element.typeObject+")");
+							let arr_price_obj = arr_print.filter((element) => {
 								
 								if( (String(element.name+"("+element.typeObject+")") == choosed_name_type ) && (element.address ==  choosed_address) ){
 									
@@ -641,13 +426,10 @@ obXhr.onreadystatechange =() => {
 						        
 									document.getElementById('print_menu').append(divrItem2);
 				        	});//заполнение меню
-		
-					
-				
-			 
+
 	/*
 			  				console.log(JSON.parse(request.response));
-			  				console.log("Кнопка сработала") ;
+			  				console.log("Кнопка отработала") ;
 	*/
 	    				}//конец события при нажатии кнопки выбрать в списке заведений 
 	   				}//перебор всех этих кнопок
@@ -663,42 +445,7 @@ obXhr.onreadystatechange =() => {
 	}//Конец события на нажатие кнопку поиск(лупа) фильтра
 
 		
-		
-		
-		
 	let arr_itog_price =[];
-	
-	
-		
-			
-				
-				
-/*
-			function getCheckbox(inpuCheckboxName){
-				let Checkbox = document.querySelectorAll(inpuCheckboxName);
-				for (let i = 0; i < Checkbox.length; i++) {
-					if (Checkbox[i].checked) {
-							      
-						console.log(Checkbox[i].value);
-*/
-/*
-						if (radio[i].value == "option1")
-// 							new_obj[keyName] = 1;
-						else if(radio[i].value == "option2"){
-// 						new_obj[keyName] = 0;
-						}
-*/	
-/*
-					}
-					else{
-// 						new_obj[keyName] = null; 
-					}
-				}
-			}
-*/
-	
-	
-	
 
 	document.addEventListener('click', function (e) {
 			  					
@@ -720,7 +467,6 @@ obXhr.onreadystatechange =() => {
 		  	
 		  	
 		  	for (let el of elements_price) {
-// 			  	getCheckbox('gridRadios');
 		  		pItem = document.createElement('p');
 		  		pItem.innerHTML = `<big>Итого: ${itog}<big>`;
 		  		el.append(pItem)
@@ -733,11 +479,7 @@ obXhr.onreadystatechange =() => {
 			  	for (let el of elements_price) {
 		  			el.innerHTML = "";
 		  		}
-	  										  					
-/*
-	  								document.getElementById('itog_main').innerHTML = "";
-			  					document.getElementById('itog_modal').innerHTML = "";	
-*/	  								  					
+
 	  			let all_price = e.target.parentElement.parentElement.parentElement.parentElement.lastElementChild.innerHTML;
 			  	console.log("Ценник блюда");
 			  	console.log(all_price);			  					
@@ -745,81 +487,30 @@ obXhr.onreadystatechange =() => {
 	  			itog -= all_price;
 	  			console.log("Итого");
 	  			console.log(itog);	
-// 									document.getElementsByName('itog').append(pItem);
-// 			  						document.getElementById('itog_modal').append(pItem);
 
-
-// 									let elements_price = document.getElementsByName('itog');
-
-				
-				
-				
-				
-			
-
-			
-			
-			
-			
-			
-			
-			
-				
-/*
-				if (document.getElementById("price_25").is(':checked')){
-		  	
-		  				itog *= 2.5;
-// 		  				alert('Включен');
-					} 
-*/
-				
-				
 				for (let el of elements_price) {
-		  			
-		  			
-		  						
 	  				pItem = document.createElement('p');
 					pItem.innerHTML = `<big>Итого: ${itog}</big>`;
 					el.append(pItem)
 		  		}
-
-
 	  								
 	  		}
   		}//если нажатой кнопкой является минус (в меню)
   	});// конец события на нажатия кнопки +/- в  меню
 
-		
-	
-	
-	
-	
-	
-	
-	
-	
 	let CheckBox = document.querySelectorAll('input[name="gridRadios"]')
 		
 		
 	for (let i = 0; i < CheckBox.length; i++) {
-		  		
-		  	
-
-		
 		CheckBox[i].onclick = () =>  {
-			
-			
-			
 			let elements_price = document.getElementsByName('itog');
-				
-				
+
 			if (CheckBox[i].checked) {
 				
 					if(itog_options == 0)
 						itog_options = itog;		      
 				
 				if (CheckBox[i].value == "option6"){
-// 					let elements_price = document.getElementsByName('itog');
 					for (let el of elements_price) {
 						el.innerHTML = "";
 		  			}
@@ -903,24 +594,6 @@ obXhr.onreadystatechange =() => {
 
 	}
 		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	document.getElementById('modal_window').onclick = () => {
 						
 		document.getElementById('modal_positions').innerHTML = "";	
@@ -934,9 +607,10 @@ obXhr.onreadystatechange =() => {
 		pItem_modal_address.innerHTML = `<small class="text-muted">${String(choosed_obj.address)}</small>`;
 								
 		pItem_modal_rate = document.createElement('p');
-		pItem_modal_rate.innerHTML =    `<svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-											<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-										</svg> ${String(choosed_obj.rate/10)}`;
+		pItem_modal_rate.innerHTML =
+			`<svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+			</svg> ${String(choosed_obj.rate/10)}`;
 
 						
 						
@@ -945,16 +619,7 @@ obXhr.onreadystatechange =() => {
 		document.getElementById('modal_district').append(`${String(choosed_obj.district)}`);
 		document.getElementById('modal_address').append(pItem_modal_address);
 		document.getElementById('modal_rate').append(pItem_modal_rate);
-					
-		
-		
-		
-		
-		
-		
-		
-		
-							
+
 						
 		let elements_menu_for_modal = document.getElementsByClassName('increase');
 		for (let elem of elements_menu_for_modal ) {
@@ -977,22 +642,7 @@ obXhr.onreadystatechange =() => {
 			else{
 				kol_for_pos = kol;
 			}
-			
-/*
-			if (document.getElementById("price_25").is(':checked')){
-				kol *= 5;
-				itog_modal *= 2.5;
-				alert('Включен');
-			} 
-*/
 
-			
-			
-			
-			
-			
-			
-			console.log(itog);
 			
 /*
 			console.log(elem.parentElement.parentElement.parentElement.parentElement.lastElementChild.innerHTML);
@@ -1028,16 +678,3 @@ obXhr.onreadystatechange =() => {
 		     
 	    
 }//конец obXhr.onreadystatechange
-    
-    
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
- 

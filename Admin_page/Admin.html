@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>for Admin</title>
     <link rel="shortcut icon" href=".../img/panda_header.ico" type="image/x-icon">
     <!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css">	
+	<link rel="stylesheet" href="../bootstrap-4.4.1-dist/css/bootstrap.css">
 	<!-- Custom styles for this page -->
     <link href="adminStyle.css" rel="stylesheet">
     <script src="admin_script.js"></script>
@@ -16,7 +16,7 @@
 	  	<header class="blog-header py-3">
 	    	<div class="row flex-nowrap justify-content-between align-items-center">
 				<div class="col-2 pt-1">
-					<a class="btn btn btn-outline-danger my-2 my-sm-0" href="../main.html" role="button">&laquo; Main</a>
+					<a class="btn btn btn-outline-danger my-2 my-sm-0" href="../index.html" role="button">&laquo; Main</a>
 	      		</div>
 		  		<div class="col-8 text-center">
 		  			<h2>Поиск нужного ресторана</h2>
@@ -164,9 +164,7 @@
 	  		</div> 
 	  		<hr class="mb-4">
 		</form>
-		
-		
-		
+
 		<div class="container">
 			<div class="row" align="right">
 				<div class="col-12" >
@@ -175,9 +173,6 @@
 			</div>
 			
 		</div>
-	
-	
-		
 		
 		<!-- 		Создание Записи -->
 		<div class="modal fade" id="createInformation" tabindex="-1" role="dialog" aria-labelledby="createInformation" aria-hidden="true">
@@ -185,7 +180,7 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLongTitle">Редактирование записи</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
@@ -243,8 +238,7 @@
   							<div class="form-group col-md-12">
   								<label for="modal_district_4">Район</label>
   								<select id="modal_district_4" class="form-control">
-<!--   									<option selected> </option> -->
-<!--   									<option>...</option> -->
+
       							</select>
 							</div><!-- /.form-group col-md-12 -->
 						</div>
@@ -259,8 +253,6 @@
 							<div class="form-group col-md-6">
 								<label for="modal_typeObject_4">Тип</label>
 								<select id="modal_typeObject_4" class="form-control">
-<!-- 									<option selected> </option> -->
-<!-- 									<option></option> -->
       							</select>
 							</div><!-- /.form-group col-md-6 -->
   						</div>
@@ -335,12 +327,12 @@
 								<div class="row" id="modal_socialPrivileges_4">
 									<div class="col-12">
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions4_2" id="modal_socialPrivileges_4_1" value="option1" >
-											<label class="form-check-label" for="inlineRadio4">Есть</label>
+											<input class="form-check-input" type="radio" name="inlineRadioOptions4_1" id="modal_socialPrivileges_4_1" value="option1" >
+											<label class="form-check-label" for="inlineRadioOptions4_1">Есть</label>
 						  				</div>
 						  				<div class="form-check form-check-inline">
 						  					<input class="form-check-input" type="radio" name="inlineRadioOptions4_2" id="modal_socialPrivileges_4_2" value="option2">
-						  					<label class="form-check-label" for="inlineRadio4">Нет</label>
+						  					<label class="form-check-label" for="inlineRadioOptions4_2">Нет</label>
 					  					</div>   
 					  					<div class="valid-feedback">
 					  						Looks good!
@@ -395,38 +387,8 @@
 		    </div>
 		  </div>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-		
-		
-<!--Сюда у нас динамически вставляются заведения и странички  	 -->
+
+		<!--Динамически вставляются заведения и страницы -->
 		<div class="album py-5 ">
 			<div class="container">
 				<div class="row" id="print_rest">
@@ -441,38 +403,14 @@
 				</div>
 			</div>
   		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		<!-- Модальное окно для уточнения информации -->
 		<div class="modal fade" id="moreInformation" tabindex="-1" role="dialog" aria-labelledby="moreInformation" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLongTitle">Информация о заведении</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
@@ -534,22 +472,14 @@
 		    </div>
 		  </div>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 <!-- 		Редактирование Записи -->
 		<div class="modal fade" id="changeInformation" tabindex="-1" role="dialog" aria-labelledby="moreInformation" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLongTitle">Редактирование записи</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
@@ -593,9 +523,7 @@
 				      </div>
 				    </div>
 				  </div>
-				  
-				  
-				  
+
 				  <div class="form-row">
 							<div class="form-group col-md-12">
 								<label for="modal_admArea_2">Административный округ</label>
@@ -719,44 +647,14 @@
 		    </div>
 		  </div>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 <!-- Модальное окно для удаления записи -->
 		<div class="modal fade bd-modal-sm" id="deleteInformation" tabindex="-1" role="dialog" aria-labelledby="deleteInformation" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLongTitle">Удаление запсиси</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
       				</div>
@@ -779,35 +677,6 @@
     			</div>
   			</div>
 		</div>
-		
-		
-		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	</main>
 	 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>

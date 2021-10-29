@@ -12,54 +12,16 @@ function unique(arr) {
   return result;
 };
 
-
-
 function print_arr_pagin(arr){
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	let page_container = document.querySelector('#print_rest');
-// 			let pagination = document.querySelector('#pagination');
-			let update_page = true;
-			
-			
-			
-			
-			
-			
-			
-			const notesOnPage = 12;
-			const countOfPages = Math.ceil(arr.length / notesOnPage);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			let pag_div = document.createElement("div");
-			pag_div.id = "pagination"
-// 			pag_div.class = "input-group mb-3"
-// 			pag_div.style = "list-style: unset; padding: unset;"
-			
-			
-			pag_div.innerHTML = 
-			`<div class="input-group mb-3">
+	let update_page = true;
+	const notesOnPage = 12;
+	const countOfPages = Math.ceil(arr.length / notesOnPage);
+	let pag_div = document.createElement("div");
+	pag_div.id = "pagination"
+	pag_div.innerHTML =
+		`<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class=" prev input-group-text" style="cursor:pointer">&laquo;</span>
 				</div>
@@ -70,58 +32,39 @@ function print_arr_pagin(arr){
 			</div>`
 			
 			
-			document.getElementById('input_pagination').append(pag_div);
-			
-/*
-			let pag_ul = document.createElement("ul");
-			pag_ul.id = "pagination"
-			pag_ul.style = "list-style: unset; padding: unset;"
-			
-			
-			
-			
-			
-			
-			pag_ul.innerHTML = `<li class="prev page-item" style="display:inline; cursor:pointer"><a class="page-link">&laquo;</a></li>
-            <li style="display:inline"></li>
-            <li class="next page-item" style="display:inline; cursor:pointer"><a class="page-link">&raquo;</a></li>
-			`;
-			document.getElementById('input_pagination').append(pag_ul);
-*/
-			
-			
-			
-			document.querySelector('#pagination input').oninput = () => {
-			    if(!update_page) return
-			    if(!document.querySelector('#pagination input').value){
-			        show(1)
-			        return
-			    }
-			    if(document.querySelector('#pagination input').value > countOfPages || document.querySelector('#pagination input').value < 1) return
-			    update_page = false
-			    setInterval(() => {update_page = true}, 1000)
-			    show(document.querySelector('#pagination input').value)
-			}
-			
-			document.querySelector('#pagination .next').onclick = () => {
-			    if(document.querySelector('#pagination input').value >= countOfPages) return 
-			    	if(!document.querySelector('#pagination input').value) 
-			    		document.querySelector('#pagination input').value = 1; 
-			    document.querySelector('#pagination input').value = parseInt(document.querySelector('#pagination input').value) + 1
-			    show(document.querySelector('#pagination input').value)
-			}
-			document.querySelector('#pagination .prev').onclick = () => {
-			    if(document.querySelector('#pagination input').value <= 1) return
-			    	 if(!document.querySelector('#pagination input').value) 
-			    	 	document.querySelector('#pagination input').value = 1;
-			    document.querySelector('#pagination input').value = parseInt(document.querySelector('#pagination input').value) - 1
-			    show(document.querySelector('#pagination input').value)
-			}
-			show()
-			function show(page = 1){
-			    if (page > countOfPages) return
-			    page_container.innerHTML = arr.slice((page - 1) * notesOnPage, page * notesOnPage).map((element) => {
-			        return `
+	document.getElementById('input_pagination').append(pag_div);
+
+	document.querySelector('#pagination input').oninput = () => {
+		if(!update_page) return
+		if(!document.querySelector('#pagination input').value){
+			show(1)
+			return
+		}
+		if(document.querySelector('#pagination input').value > countOfPages || document.querySelector('#pagination input').value < 1) return
+		update_page = false
+		setInterval(() => {update_page = true}, 1000)
+		show(document.querySelector('#pagination input').value)
+	}
+
+	document.querySelector('#pagination .next').onclick = () => {
+		if(document.querySelector('#pagination input').value >= countOfPages) return
+		if(!document.querySelector('#pagination input').value)
+			document.querySelector('#pagination input').value = 1;
+		document.querySelector('#pagination input').value = parseInt(document.querySelector('#pagination input').value) + 1
+		show(document.querySelector('#pagination input').value)
+	}
+	document.querySelector('#pagination .prev').onclick = () => {
+		if(document.querySelector('#pagination input').value <= 1) return
+		if(!document.querySelector('#pagination input').value)
+			document.querySelector('#pagination input').value = 1;
+		document.querySelector('#pagination input').value = parseInt(document.querySelector('#pagination input').value) - 1
+		show(document.querySelector('#pagination input').value)
+	}
+	show()
+	function show(page = 1){
+		if (page > countOfPages) return
+		page_container.innerHTML = arr.slice((page - 1) * notesOnPage, page * notesOnPage).map((element) => {
+			return `
 			        <div class="col-md-4">
 			            <div class="card mb-4 shadow-sm">
 							<div class="card-body">
@@ -158,174 +101,24 @@ function print_arr_pagin(arr){
 						</div>
 					</div>
 			        `;
-			    }).join('')
-			
-			}
-	
-	
-			ShowMoreInfo();
-			changeInfo();
-			deleteInfo();
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-/*
-	let notesOnPage = 12;
-	let notes = [];
-			let countOfItems = Math.ceil(arr.length/notesOnPage);
-			for (let i=1; i <= countOfItems; i++ ){
-				let pag_buttons = document.createElement('li');
-				if(i == 1){
-					pag_buttons.className = "page-item active";
-				}
-				else{
-					pag_buttons.className = "page-item";
-				}
-				pag_buttons.innerHTML = `<a class="page-link">${i}</a>`;
-		  		document.getElementById('input_pagination').append(pag_buttons);
-			}
-			
-			let choosed_li = document.getElementsByClassName('page-link');
-			ShowPage(choosed_li[0]);
-			
-			for(let item of choosed_li){
-				item.addEventListener('click', function(){
-					let active = document.querySelector("li.page-item.active");						
-					console.log(active);
-						
-					if (active) {
-						console.log("найдено");
-// 						console.log(active);
-						active.className = "page-item";
-					}
-						
-						item.parentNode.className = "page-item active";
-// 						console.log(this.parentNode.parentNode.c.classList.contains("page-item active"));
-						ShowPage(item);
-						
-						
-					ShowMoreInfo();
-					changeInfo();
-					deleteInfo();	
-						
-				});//конец клика на страницу li
-			}
-				
-				
-					
-				
-			function ShowPage(item){
-			
-				let pageNum = Number(item.innerHTML);
-							
+		}).join('')
+
+	}
+
+
+	ShowMoreInfo();
+	changeInfo();
+	deleteInfo();
 		
-				let start = (pageNum-1)*12;
-				let end = (pageNum-1)*12 + 12;
-				notes = arr.slice(start, end);
-				console.log(notes);
-				document.getElementById('print_rest').innerHTML = "";
-				notes.forEach((element) => {
-					divrItem = document.createElement('div');
-					divrItem.className = "col-md-4";
-					divrItem.innerHTML = 
-					
-					`
-						<div class="card mb-4 shadow-sm">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-12" style=" height: 60px;"><p class="card-text" id="card">${String(element.name)}(${String(element.typeObject)})</p></div>
-									<div class="col-12" style=" height: 120px;"><hr><small class="text-muted">${String(element.address)}</small></div>
-								</div>	
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<button type="button" class="moreInformation_button btn btn-sm btn-outline-success" data-toggle="modal" data-target="#moreInformation">...</button>
-										
-									</div>
-									<div class="btn-group">
-										<button type="button" class="changeInformation_button btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#changeInformation">
-											<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
-												<path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
-											</svg>
-										</button>
-									</div>
-									
-									<div class="btn-group">
-										<button type="button" class="deleteInformation_button btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteInformation">
-											<svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-												<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-											</svg>
-										</button>
-									</div>
-									
-									
-			              		</div>
-			            	</div>
-						</div>
-					`	
-					
-					
-						
-				  	document.getElementById('print_rest').append(divrItem);
-			  		       	
-			    });//фильтрованные заведения
-							
-			}//функция показа страниц 
-	
-			
-*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//Для кнопки подробнее(...) в списке заведений
+	//Для кнопки подробнее(...) в списке заведений
 	function ShowMoreInfo(){
 		let all_moreInformation_buttons = document.getElementsByClassName('moreInformation_button btn btn-sm btn-outline-success');
-		
 		for (let button of all_moreInformation_buttons) { 
 			button.onclick = () => {//начало события клика на выбранную кнопку у заведения
-							
-				
-				
-							
-							
+
 				console.log(String(button.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.firstElementChild.innerHTML));//"имя"+(+"тип"+)				
 				console.log(String(button.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML))//адрес выбранного заведения
-								
-								
+
 				document.getElementById('modal_name').innerHTML="";
 				document.getElementById('modal_admArea').innerHTML="";
 				document.getElementById('modal_district').innerHTML="";
@@ -344,22 +137,12 @@ function print_arr_pagin(arr){
 				
 				let arr_price_obj = arr.filter((element) => {
 										
-			// 							console.log(element.name+"("+element.typeObject+")");
-										
-					if( (String(element.name+"("+element.typeObject+")") == choosed_name_type ) && (element.address ==  choosed_address) ){
-											
-						console.log(element);
+					if( (String(element.name+"("+element.typeObject+")") == choosed_name_type ) && (element.address ==  choosed_address) ) {
 						choosed_obj = element;//для модального окна
 						return element;
 											
 					}
-				});//для поиска данных о выбранном объекте		
-							
-							
-							
-							
-							
-							
+				});//для поиска данных о выбранном объекте
 							
 				pItem_modal_address = document.createElement('p');
 				pItem_modal_address.innerHTML = `<small class="text-muted">${String(choosed_obj.address)}</small>`;
@@ -436,16 +219,10 @@ function print_arr_pagin(arr){
 				
 				console.log(String(button.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.firstElementChild.innerHTML));//"имя"+(+"тип"+)				
 				console.log(String(button.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML))//адрес выбранного заведения
-				
-				
-				
-				
-				
-				
+
 				document.getElementById('print_dishes').innerHTML="";
 				
 				document.getElementById('modal_name_2').innerHTML="";
-	// 			document.getElementById('modal_isNetObject').innerHTML="";
 				document.getElementById('modal_operatingCompany_2').innerHTML = "";
 				
 
@@ -454,21 +231,12 @@ function print_arr_pagin(arr){
 				document.getElementById('modal_seatsCount_2').innerHTML="";
 				document.getElementById('modal_publicPhone_2').innerHTML="";
 				document.getElementById('modal_address_2').innerHTML="";
-	// 			document.getElementById('modal_socialPrivileges_2').innerHTML="";
 				document.getElementById('modal_rate_2').innerHTML="";
-				
-	// 			document.getElementById('modal_geogr_2').innerHTML="";		
-		
-				
-		
+
 				
 				let choosed_address = String(button.parentNode.parentNode.parentNode.firstElementChild.lastElementChild.lastElementChild.innerHTML);
 				let choosed_name_type = String(button.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.firstElementChild.innerHTML);
-// 				let choosed_obj;
 				let arr_price_obj = arr.filter((element) => {
-										
-			// 							console.log(element.name+"("+element.typeObject+")");
-										
 					if( (String(element.name+"("+element.typeObject+")") == choosed_name_type ) && (element.address ==  choosed_address) ){
 											
 						console.log(element);
@@ -477,13 +245,8 @@ function print_arr_pagin(arr){
 											
 					}
 				});//для поиска данных о выбранном объекте	
-				
-				
-				
-				
-				
-				console.log("Начало проверки");
-							
+
+				//Начало проверки
 				
 				document.getElementById('modal_admArea_2').childNodes.forEach(element =>{
 					if(String(element.innerHTML) == choosed_obj.admArea)
@@ -516,15 +279,11 @@ function print_arr_pagin(arr){
 					}
 									
 				};
+
 				
+				//Конец проверки
 				
-				
-				console.log("Конец проверки");
-				
-				
-				
-				
-				
+
 				let arr_price = Object.values(choosed_obj).slice(8,18);//делает объект price_obj массивом и вырезает ценники => массив цен
 				console.log(arr_price);
 				
@@ -588,16 +347,7 @@ function print_arr_pagin(arr){
 							
 						if (document.getElementById('modal_typeObject_2').value != String(choosed_obj.typeObject))
 							changed_obj["typeObject"] = document.getElementById('modal_typeObject_2').value;
-							
-						
-/*
-						if (document.getElementById('modal_isNetObject_2_1').prop('checked') ){
-							changed_obj["isNetObject"] = 1;
-						}
-						if (document.getElementById('modal_isNetObject_2_2').prop('checked') ){
-							changed_obj["isNetObject"] = 0;
-						}
-*/
+
 						getRadio('input[name="inlineRadioOptions1"]', 'isNetObject', choosed_obj.isNetObject );
 						getRadio('input[name="inlineRadioOptions"]', 'socialPrivileges', choosed_obj.socialPrivileges );
 
@@ -626,75 +376,19 @@ function print_arr_pagin(arr){
 							changed_obj[`set_${i+1}`] = Number(element.lastElementChild.value);	
 						
 						})
-						
-/*
-						console.log(document.getElementById('modal_isNetObject_2_2:checked').('input[name=inlineRadioOptions1]:checked'));
-						console.log("для кнопки нет");
-						console.log(document.getElementById('modal_isNetObject_2_2:checked'));
-*/
-						
-						
-						
-									
-						console.log(changed_obj);
-						
-						
-						
-											
-/*
-					let obXhr = new XMLHttpRequest();
-						obXhr.open('PUT', `http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1/${choosed_obj.id}`);
-						obXhr.send(JSON.stringify(changed_obj));
-						obXhr.onreadystatechange = function(){
-							if(obXhr.readyState != 4) return;
-							if(obXhr.status != 200){
-								alert('Сервер недоступен ' + obXhr.status + ' ' + obXhr.statusText);
-								return;
+
+						fetch(`http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1/${choosed_obj.id}`, {
+							method: 'PUT',
+							body: JSON.stringify(changed_obj),
+							headers: {
+								"Content-type": "application/json; charset=UTF-8"
 							}
-								
-							if(obXhr.response){
-								console.log("заходит в ответ");
-								let result = JSON.parse(obXhr.response);
-*/
-									
-						/*
-									let divItem;
-									chatTextDiv.innerHTML = '';
-						*/
-									
-				/*
-									if(result.error != undefined){
-										alert('Ошибка отправки сообщения: ' + result.error);
-									}
-				*/
-									
-/*
-								if(result != undefined){
-										alert('ID измененного сообщения: ' + result);
-										console.log('ID измененного сообщения: ' + result);
-								}
-							}
-								
-						}
-*/
-					
-					
-					
-					fetch(`http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1/${choosed_obj.id}`, {
-						method: 'PUT',
-						body: JSON.stringify(changed_obj),
-						headers: {
-						"Content-type": "application/json; charset=UTF-8"
-						}
 						})
-						
-							
-						.then(response => response.json())
-	
-						.then((json) => {
-							alert("id измененного документа - "+json.id)
-							
-							array_main.forEach(function(element, i){
+							.then(response => response.json())
+							.then((json) => {
+								alert("id измененного документа - "+json.id)
+
+								array_main.forEach(function(element, i){
 									if (element.id == choosed_obj.id){
 										element = json;
 										array_main[i] = element ;
@@ -703,50 +397,21 @@ function print_arr_pagin(arr){
 										document.getElementById('input_pagination').innerHTML= "";
 										print_arr_pagin(array_main);
 									}
-										
-							})
-						
-						});
-	
-						
-						 						
-					
-					
-					
-								
-							
+
+								})
+
+							});
 					}	
 		
 				}// функция для кнопки изменения записи
 
-				
-				
-				
-				
-				
-				
 			};//конец события на нажатие кнокпи редактировать
 		
 		}//конец перебора кнопок редактирования
 		
 		
 	}//конец функции	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 //Для удаления информации	
 	function deleteInfo(){	
 		let all_deleteInformation_buttons = document.getElementsByClassName('deleteInformation_button btn btn-sm btn-outline-danger');
@@ -761,9 +426,7 @@ function print_arr_pagin(arr){
 				document.getElementById('name_of_object_Delete').append(`${String(button.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.firstElementChild.innerHTML).split('(')[0]}`);
 				
 				arr.forEach((element) => {
-										
-			// 							console.log(element.name+"("+element.typeObject+")");
-										
+
 					if( (String(element.name+"("+element.typeObject+")") == choosed_name_type ) && (element.address ==  choosed_address) ){
 											
 						console.log(element);
@@ -777,24 +440,12 @@ function print_arr_pagin(arr){
 		
 			};//конец события на нажатие кнокпи удалить
 		
-		
-		
 		}//конец перебора кнопок
-	
 		
 	}//конец функции удаления информации	
-	
-	
-	
-// 	return notes;	
+
 	
 }//конец лучшей функции во вселенной
-
-
-
-
-
-
 
 
 let obXhr = new XMLHttpRequest();
@@ -841,23 +492,9 @@ obXhr.onreadystatechange =() => {
 				isNetObject : elem.isNetObject
 			}
 		));
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
+
 		
 	function Zap_main(){
-			
-			
 		console.log(JSON.parse(obXhr.response));
 		let admArea = JSON.parse(obXhr.response).map(Area => {return Area.admArea;});
 		let district = JSON.parse(obXhr.response).map(District => {return District.district;});
@@ -902,58 +539,10 @@ obXhr.onreadystatechange =() => {
 		
 		print_arr_pagin(arr_all);
 		
-		
-		
-
-		
 	}// конец zapmain
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-					
 
-
-	
 	function pag(){
-			console.log('тут был')
-
 		itog = 0;
-			
-			
 		document.getElementById('print_rest').innerHTML = "";
 		document.getElementById('input_pagination').innerHTML = "";
 			
@@ -993,35 +582,11 @@ obXhr.onreadystatechange =() => {
 											k++;
 											return element;
 			    						}
-				
-				
-				
-				
-				
-				
-				
-							    					
 	    }).sort((a, b) => a.rate < b.rate ? 1 : -1);//конец фильтрации массива по нашим параметрам + отсортировано по убыванию рейтинга
-	        
-	        
-	        
-	    console.log(k);
-	       		
-			
-		if(k>0 )
-		{
-		
-			print_arr_pagin(arr_print);
-/*
-			ShowMoreInfo();
-			changeInfo();
-			deleteInfo();
-*/
-// 			delete_Info_modal();
 
-		}//есть ли рестораны
-		
-		else{
+		if(k>0 ) {
+			print_arr_pagin(arr_print);
+		} else{
 			divrItem = document.createElement('div');
 			divrItem.className = "col-md-12";
 			divrItem.align = 'center';
@@ -1032,86 +597,12 @@ obXhr.onreadystatechange =() => {
 	}//Конец события на нажатие кнопку поиск(лупа) фильтра
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	document.addEventListener("DOMContentLoaded", Zap_main());
 		
 	document.getElementById("FilterFindButton").addEventListener('click',pag);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
-	
 }//запрос на получение всех данных
 
-/*
-function getObj(){console.log(choosed_obj)};
-setInterval(getObj, 5000);
-*/
 
 function delete_Info_modal(del_but, array_main){
 	del_but.onclick = () => {
@@ -1128,11 +619,6 @@ function delete_Info_modal(del_but, array_main){
 			if(obXhr.response){
 				console.log("заходит в ответ");
 				let result = JSON.parse(obXhr.response);
-								
-		/*
-					let divItem;
-					chatTextDiv.innerHTML = '';
-		*/
 					
 				if(result.error != undefined){
 					alert('Ошибка удаления запсси: ' + result.error);
@@ -1163,22 +649,9 @@ function delete_Info_modal(del_but, array_main){
 	}	
 		
 }// функция для кнопки удаления записи
-	
-
-
-
-
-
-
 
 function createInfo(){
-	
-	
-	
-	
-	
-	
-	
+
 	let new_obj = {};
 						
 	new_obj["name"] = document.getElementById('modal_name_4').value;
@@ -1207,65 +680,19 @@ function createInfo(){
 						
 	new_obj["typeObject"] = document.getElementById('modal_typeObject_4').value;
 	
-							
-						
-/*
-						if (document.getElementById('modal_isNetObject_2_1').prop('checked') ){
-							changed_obj["isNetObject"] = 1;
-						}
-						if (document.getElementById('modal_isNetObject_2_2').prop('checked') ){
-							changed_obj["isNetObject"] = 0;
-						}
-*/
+
 	getRadio2('input[name="inlineRadioOptions4_1"]', 'isNetObject');
 	getRadio2('input[name="inlineRadioOptions4_2"]', 'socialPrivileges');
-												
-			
-			
-			
-			
-			
-/*
-			
-	for (let i = 0; i < radio.length; i++) {
-			if (radio[0].checked) {
-							      
-				console.log(radio[i].value);
-				if (radio[i].value == "option1")
-					new_obj[keyName] = 1;
-				else if(radio[i].value == "option2"){
-					new_obj[keyName] = 0;
-				}	
-			}
-/*
-			else{
-				new_obj[keyName] = null; 
-			}
-*/
-// 		}			
-			
-			
-			
-			
-						
-						
+
 	function getRadio2(inputRadioName, keyName){
 		let radio = document.querySelectorAll(inputRadioName);
-// 		for (let i = 0; i < radio.length; i++) {
 			if (radio[0].checked) 
 				new_obj[keyName] = 1;
 				
 				
 			if(radio[1].checked)	
 				new_obj[keyName] = 0;			      
-// 				console.log(radio[i].value);
-			
-/*
-			else{
-				new_obj[keyName] = null; 
-			}
-*/
-// 		}
+
 	}
 	
 	console.log(new_obj);
@@ -1275,22 +702,13 @@ function createInfo(){
 	let prices_values_4 = document.getElementById('print_dishes_4').querySelectorAll("input");
 				
 				
-/*
-	for (let i = 0; i<prices_values_4.length; i++)	{
-		console.log(prices_values_4[i].lastElementChild);
-	}	
-*/	
-				
-				
+
 	prices_values_4.forEach((element, i) =>{
 		console.log(element);
 		new_obj[`set_${i+1}`] = Number(element.value);	
 						
 	})
 
-	
-	
-	
 	fetch(`http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1`, {
 	method: 'POST',
 	body: JSON.stringify(new_obj),
@@ -1298,13 +716,7 @@ function createInfo(){
 	"Content-type": "application/json; charset=UTF-8"
 	}
 	})
-	
-	.then(response => response.json())
-	
-	
-	
-	.then(json => alert("id созданного документа - "+json.id))
-	
-	
+		.then(response => response.json())
+		.then(json => alert("id созданного документа - "+json.id))
 	
 }

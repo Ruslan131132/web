@@ -8,7 +8,9 @@ body {
   color: #5a5a5a;
 }
 
-
+nav {
+  padding: 0 20px;
+}
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
